@@ -1,0 +1,38 @@
+Mahout ??
+qu'est-ce que le clustering
+qu'est-ce que k-means
+comment fonctionne l'algorithme k-means
+les etapes pour travailler avec mahout
+les screens........
+ 
+https://prezi.com/p/edit/jkbtnz0_ed3j/
+
+les etapes:
+1- telecharger dataset
+2-creation de dossier de projet dans hdfs et coller le dataset dans le dossier
+3-mahout seqdirectory -i  /user/cloudera/Projet -o  /user/cloudera/Projet/output -c UTF-8 -chunk 5
+4-mahout seq2sparse -nv -i /user/cloudera/Projet -o /user/cloudera/Projet/vectors
+chemininput = njreb tragedy-seqfiles
+cheminoutput = njreb tragedy-vectors
+5-mahout canopy -i vectors/tf-vectors -o vectors/canopy-centroids -dm org.apache.mahout.common.distance.CosineDistanceMeasure -t1 1500 -t2 2000
+6-mahout kmeans -i inputFolder -c centroidDirectory -o outputFolder -dm org.apache.mahout.common.distance.CosineDistanceMeasure -clustering --clustering -cl -cd 0.1 -ow -x 20 -k 10
+
+MAX Number OF ITERATIONS : 20
+Number OF CLUSTERS : 10
+
+7-Pour interpreter le resultat :
+mahout clusterdump -dt sequencefile -d cheminoutput/dictionary.file-* -i cheminoutput/clusters-3-final -o clusters.txt -b 100 -p cheminoutput/clusterdPoints -n 20
+
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-i386
+export PATH=$PATH:$JAVA_HOME/bin
+export HADOOP_HOME=/home/user/hadoop-0.20.2
+export PATH=$PATH:$HADOOP_HOME/bin
+export MAHOUT_HOME=/home/user/mahout/trunk
+export classpath=$classpath:$MAHOUT_HOME/src/conf
+export HADOOP_CONF_DIR=/home/user/hadoop-0.20.2/conf
+export classpath=$classpath:$HADOOP_CONF_DIR
+
+
+
+
+
